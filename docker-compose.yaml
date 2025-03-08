@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres
+    command: [ "postgres", "-c", "log_statement=all", "-c", "log_destination=stderr" ]
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: database
+    volumes:
+      - postgresdb:/usr/local/var/postgres
+    ports:
+      - 5432:5432
+volumes:
+  postgresdb:
+    driver: local
