@@ -1,8 +1,9 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 import { EkkoUser } from './user.entity';
 
 export class UpdateUserDto {
   @IsNotEmpty()
+  @IsNumber()
   structure_id: number;
 
   public toEntity() {

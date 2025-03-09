@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNumber,IsNotEmpty } from 'class-validator';
 import { EkkoUser } from './user.entity';
 
 export class CreateUserDto {
@@ -6,6 +6,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   name: string;
   @IsNotEmpty()
+  @IsNumber()
   structure_id: number;
 
   public toEntity() {
