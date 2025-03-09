@@ -14,7 +14,7 @@ export class RoleDto {
     const it = new RoleDto();
     it.id = entity.id;
     it.name = entity.name;
-    it.parent_id = entity.parent_id;
+    it.parent_id = entity.parent_role.id;
     return it;
   }
   

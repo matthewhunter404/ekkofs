@@ -8,11 +8,11 @@ export class CreateStructureDto {
   @IsNotEmpty()
   @IsNumber()
   parent_id: number;
-    public toEntity() {
-      return new Role({
-        name: this.name,
-        parent_id: this.parent_id,
-      });;
-    }
+  public toEntity() {
+    return new Role({
+      name: this.name,
+      parent_role: new Role({ id: this.parent_id }),
+    });;
+  }
   
 }

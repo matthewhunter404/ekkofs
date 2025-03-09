@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 import { Structure } from '../../structure/entity/structure.entity';
 
 @Entity()
@@ -9,8 +9,9 @@ export class Role {
   @Column()
   name: string;
 
-  @Column()
-  parent_id: number;
+  @OneToOne(() => Role, role => role.parent_role, { nullable: true })
+  @JoinColumn()
+  parent_role: Role
 
   @OneToMany(type => Structure, structure => structure.role)
   structures: Structure[];
