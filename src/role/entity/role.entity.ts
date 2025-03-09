@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Structure { //TODO or maybe just call it UserEntity
+export class Role { //TODO or maybe just call it UserEntity
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -9,12 +9,9 @@ export class Structure { //TODO or maybe just call it UserEntity
   name: string;
 
   @Column()
-  role_id: number;
-
-  @Column()
   parent_id: number;
 
-  constructor(partial: Partial<Structure>) {
+  constructor(partial: Partial<Role>) {
     Object.assign(this, partial);
   }
 }

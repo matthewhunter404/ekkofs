@@ -1,7 +1,7 @@
 import { IsString, IsNumber, IsNotEmpty } from 'class-validator';
-import { EkkoUser } from './user.entity';
+import { Structure } from '../entity/structure.entity';
 
-export class UserDto {
+export class StructureDto {
   @IsNotEmpty()
   id: number;
   @IsString()
@@ -9,13 +9,16 @@ export class UserDto {
   name: string;
   @IsNotEmpty()
   @IsNumber()
-  structure_id: number;
-
-  public static fromEntity(entity: EkkoUser) {
-    const it = new UserDto();
+  role_id: number;
+  @IsNotEmpty()
+  @IsNumber()
+  parent_id: number;
+  public static fromEntity(entity: Structure) {
+    const it = new StructureDto();
     it.id = entity.id;
     it.name = entity.name;
-    it.structure_id = entity.structure_id;
+    it.role_id = entity.role_id;
+    it.parent_id = entity.parent_id;
     return it;
   }
   
