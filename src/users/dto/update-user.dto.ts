@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsNumber } from 'class-validator';
-import { EkkoUser } from './user.entity';
+import { EkkoUser } from '../entity/user.entity';
 
 export class UpdateUserDto {
   @IsNotEmpty()

@@ -1,6 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config'
-import { EkkoUser } from '../users/user.entity';
+import { EkkoUser } from '../users/entity/user.entity';
 
 export default (configService: ConfigService): TypeOrmModuleOptions => {
     const options: TypeOrmModuleOptions = {
