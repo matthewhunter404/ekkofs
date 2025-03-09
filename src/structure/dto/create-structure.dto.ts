@@ -16,7 +16,7 @@ export class CreateStructureDto {
   public toEntity() {
     return new Structure({
       name: this.name,
-      parent_id: this.parent_id,
+      parent_structure: new Structure({ id: this.parent_id }),
       role: new Role({ id: this.role_id }),
     });
   }

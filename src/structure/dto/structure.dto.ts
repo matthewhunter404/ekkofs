@@ -18,7 +18,7 @@ export class StructureDto {
     it.id = entity.id;
     it.name = entity.name;
     it.role_id = entity.role.id;
-    it.parent_id = entity.parent_id;
+    it.parent_id = entity.parent_structure.id;
     return it;
   }
   

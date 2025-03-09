@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, OneToOne, JoinColumn} from 'typeorm';
 import { EkkoUser } from '../../users/entity/user.entity';
 import { Role } from '../../role/entity/role.entity';
 
@@ -10,14 +10,15 @@ export class Structure {
   @Column()
   name: string;
 
-  @Column()
-  parent_id: number;
-
   @OneToMany(type => EkkoUser, user => user.structure)
   users: EkkoUser[];
 
   @ManyToOne(type => Role, role => role.structures)
   role: Role
+
+  @OneToOne(() => Structure, structure => structure.parent_structure, { nullable: true })
+  @JoinColumn()
+  parent_structure: Structure
 
   constructor(partial: Partial<Structure>) {
     Object.assign(this, partial);
