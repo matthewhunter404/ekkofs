@@ -12,8 +12,8 @@ export class UsersService {
   ) {}
 
   async create(user: EkkoUser) {
-    console.log("user"+ JSON.stringify(user))
-    return await this.usersRepository.insert(user);
+
+    return await this.usersRepository.save(user);
   }
 
   findAll(): Promise<EkkoUser[]> {
