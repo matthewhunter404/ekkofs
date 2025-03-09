@@ -17,7 +17,7 @@ export class StructureDto {
     const it = new StructureDto();
     it.id = entity.id;
     it.name = entity.name;
-    it.role_id = entity.role_id;
+    it.role_id = entity.role.id;
     it.parent_id = entity.parent_id;
     return it;
   }

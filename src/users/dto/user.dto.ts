@@ -15,7 +15,7 @@ export class UserDto {
     const it = new UserDto();
     it.id = entity.id;
     it.name = entity.name;
-    it.structure_id = entity.structure_id;
+    it.structure_id = entity.structure.id;
     return it;
   }
   

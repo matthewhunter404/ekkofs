@@ -11,9 +11,6 @@ export class Structure {
   name: string;
 
   @Column()
-  role_id: number;
-
-  @Column()
   parent_id: number;
 
   @OneToMany(type => EkkoUser, user => user.structure)

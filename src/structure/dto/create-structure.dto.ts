@@ -1,5 +1,6 @@
 import { IsString, IsNumber, IsNotEmpty } from 'class-validator';
 import { Structure } from '../entity/structure.entity';
+import { Role } from '../../role/entity/role.entity';
 
 export class CreateStructureDto {
   @IsString()
@@ -11,12 +12,13 @@ export class CreateStructureDto {
   @IsNotEmpty()
   @IsNumber()
   parent_id: number;
-    public toEntity() {
-      return new Structure({
-        name: this.name,
-        role_id: this.role_id,
-        parent_id: this.parent_id,
-      });;
-    }
+  
+  public toEntity() {
+    return new Structure({
+      name: this.name,
+      parent_id: this.parent_id,
+      role: new Role({ id: this.role_id }),
+    });
+  }
   
 }

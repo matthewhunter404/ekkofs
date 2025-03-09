@@ -6,7 +6,7 @@ export class EkkoUser { //TODO or maybe just call it UserEntity
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({nullable: true})
   name: string;
 
   @Column()
