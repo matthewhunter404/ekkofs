@@ -1,8 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Users } from '../../users/entity/users.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne} from 'typeorm';
+import { EkkoUser } from '../../users/entity/user.entity';
+import { Role } from '../../role/entity/role.entity';
 
 @Entity()
-export class Structure { //TODO or maybe just call it UserEntity
+export class Structure {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -15,8 +16,11 @@ export class Structure { //TODO or maybe just call it UserEntity
   @Column()
   parent_id: number;
 
-  @OneToMany(type => Photo, photo => photo.user)
-  photos: Photo[];
+  @OneToMany(type => EkkoUser, user => user.structure)
+  users: EkkoUser[];
+
+  @ManyToOne(type => Role, role => role.structures)
+  role: Role
 
   constructor(partial: Partial<Structure>) {
     Object.assign(this, partial);
