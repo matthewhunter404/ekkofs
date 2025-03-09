@@ -1,6 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config'
-import { User } from '../users/user.entity';
+import { EkkoUser } from '../users/user.entity';
 
 export default (configService: ConfigService): TypeOrmModuleOptions => {
     const options: TypeOrmModuleOptions = {
@@ -10,8 +10,8 @@ export default (configService: ConfigService): TypeOrmModuleOptions => {
       username: configService.get<string>('POSTGRES_USER'),
       password: configService.get<string>('POSTGRES_PASSWORD'),
       database: configService.get<string>('POSTGRES_DATABASE'),
-      entities: [User],
-      synchronize: false,
+      entities: [EkkoUser],
+      synchronize: true, //This autoruns migrations, TODO turn off for production
     };
     return options;
   };

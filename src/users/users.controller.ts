@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './create-user.dto';
-import { User } from './interfaces/user.interface';
+import { EkkoUser } from './user.entity';
 
 @Controller('users')
 export class UsersController {
@@ -14,11 +14,14 @@ export class UsersController {
 
     @Post()
     async create(@Body() createUserDto: CreateUserDto) {
-      let user: User = {
-        id:1,
+
+      let user: EkkoUser = {
+        id:0,
         name: createUserDto.name,
         structure_id:createUserDto.structure_id,
       };
-      this.usersService.create(user);
+      const createdUser = await this.usersService.create(user);
+
+      return { message: 'User added successfully', user: createdUser };
     }
 }
