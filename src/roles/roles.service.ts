@@ -21,7 +21,17 @@ export class RolesService {
         if (message.includes("foreign key constraint") && detail.includes("roleid") ){
           throw new HttpException('Parent Role Not Found', HttpStatus.NOT_FOUND);
         }
+        if (message.includes("violates unique constraint")) {
+          if (detail.includes("parentroleid")) {
+            throw new HttpException('Duplicate Parent Role Assignment, each parent role can only have one child', HttpStatus.BAD_REQUEST);
+          }
+          if  (detail.includes("name") && detail.includes("already exists")) {
+            throw new HttpException('Duplicate Name, a role with that name already exists', HttpStatus.BAD_REQUEST);
+          }
+        }
+
       }
+      console.error("Unexpected error:", error);
       throw new Error("An unexpected error occurred while creating the role");
     }
 
