@@ -1,5 +1,6 @@
 import { IsString, IsNumber, IsNotEmpty } from 'class-validator';
 import { Structure } from '../entity/structure.entity';
+import { RoleDto } from '../../roles/dto/role.dto';
 
 export class StructureDto {
   @IsNotEmpty()
@@ -8,19 +9,20 @@ export class StructureDto {
   @IsNotEmpty()
   name: string;
   @IsNotEmpty()
-  @IsNumber()
-  role_id: number;
+  role: RoleDto;
   @IsNotEmpty()
   @IsNumber()
   parent_id: number;
   public static fromEntity(entity: Structure) {
-    console.log("Expected entity:", entity);
+    console.log("Structure Entity:", entity);
     const structure = new StructureDto();
     structure.id = entity.id;
     structure.name = entity.name;
-    structure.role_id = entity.role.id;
-    if (entity.parent_structure) {
-      structure.parent_id = entity.parent_structure.id;
+    if (entity.role) {
+      structure.role = RoleDto.fromEntity(entity.role);
+    }
+    if (entity.parentStructureId) {
+      structure.parent_id = entity.parentStructureId;
     }
     return structure;
   }

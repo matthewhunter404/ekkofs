@@ -10,6 +10,9 @@ export class Role {
   @Column()
   name: string;
 
+  @Column({ nullable: true })
+  parentRoleId: number
+  
   @OneToOne(() => Role, role => role.parent_role, { nullable: true })
   @JoinColumn()
   parent_role: Role

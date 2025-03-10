@@ -51,7 +51,10 @@ export class StructuresService {
   
 
   async findOne(id: number): Promise<Structure | null> {
-    return this.structuresRepository.findOneBy({ id });
+    return this.structuresRepository.findOne({ 
+      where: { id: id },
+      relations: ["role"] 
+    });
   }
 
 //   async update(id: number, structure: Partial<Structure>): Promise<Structure| null> {

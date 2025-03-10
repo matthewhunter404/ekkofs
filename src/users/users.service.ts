@@ -19,7 +19,7 @@ export class UsersService {
         const message = error.message.toLowerCase();
         const detail = error.driverError.detail.toLowerCase();
         if (message.includes("foreign key constraint") && detail.includes("structureid") ){
-          throw new HttpException('Structure Not Found', HttpStatus.NOT_FOUND);
+          throw new HttpException('Structure Not Found', HttpStatus.BAD_REQUEST);
         }
       }
       console.error("Unexpected error:", error);
@@ -31,21 +31,45 @@ export class UsersService {
   }
 
   async findAll(): Promise<EkkoUser[]> {
-    return this.usersRepository.find();
+    return this.usersRepository.find({relations: ["structure"]});
   }
 
   async findOne(id: number): Promise<EkkoUser | null> {
-    return this.usersRepository.findOneBy({ id });
+    return this.usersRepository.findOne({ 
+      where: { id: id },
+      relations: ["structure"] 
+    });
   }
 
   async update(id: number, user: Partial<EkkoUser>): Promise<EkkoUser| null> {
-    const currentUser = await this.usersRepository.findOneBy({ id })
+
+    let currentUser = await this.usersRepository.findOne({ 
+      where: { id: id },
+      relations: ["structure"] 
+    });
     if (currentUser) {
-      currentUser.structure.id = <number>user.structure?.id
-      //TODO catch error here if structure_id does not exist 
-      return await this.usersRepository.save(currentUser)
+      currentUser.structure.id = <number>user.structure?.id //Validated at DTO input
+      let updatedUser
+      try {
+        updatedUser = await this.usersRepository.save(currentUser)
+      } catch (error) {
+        if (error instanceof QueryFailedError) {
+          const message = error.message.toLowerCase();
+          const detail = error.driverError.detail.toLowerCase();
+          if (message.includes("foreign key constraint") && detail.includes("structureid") ){
+            throw new HttpException('Assigned Structure Does Not Exist', HttpStatus.BAD_REQUEST);
+          }
+        }
+        console.error("Unexpected error:", error);
+        throw new Error("An unexpected error occurred while updating the user");
+      }
+
+      return await this.usersRepository.findOne({ 
+        where: { id: id },
+        relations: ["structure"] 
+      });
     } else {
-      return null
+      throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
     }
 
   }

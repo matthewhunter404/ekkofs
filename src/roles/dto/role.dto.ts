@@ -14,9 +14,10 @@ export class RoleDto {
     const role = new RoleDto();
     role.id = entity.id;
     role.name = entity.name;
-    if (entity.parent_role) {
-      role.parent_id = entity.parent_role.id;
+    if (entity.parentRoleId) {
+      role.parent_id = entity.parentRoleId;
     }
+
     return role;
   }
   

@@ -17,6 +17,9 @@ export class Structure {
   @ManyToOne(type => Role, role => role.structures)
   role: Role
 
+  @Column({ nullable: true })
+  parentStructureId: number
+  
   @ManyToOne(type => Structure, structure => structure.child_structures, { nullable: true })
   parent_structure: Structure
 
