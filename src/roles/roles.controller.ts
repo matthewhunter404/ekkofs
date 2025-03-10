@@ -3,7 +3,7 @@ import { RolesService } from './roles.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { RoleDto } from './dto/role.dto';
 
-@Controller('role')
+@Controller('roles')
 export class RolesController {
     constructor(private rolesService: RolesService) {}
 
@@ -13,8 +13,13 @@ export class RolesController {
     }
 
     @Get(':id')
-    async findOne(@Param('id') id: string): Promise<RoleDto[]> {
-      return (await this.rolesService.findAll()).map(e =>RoleDto.fromEntity(e));
+    async findOne(@Param('id') id: number): Promise<RoleDto> {
+     const foundRole = await this.rolesService.findOne(id)
+      if (foundRole == null) {
+        throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+      } else {
+        return RoleDto.fromEntity(foundRole)
+      }
     }
 
     @Post()

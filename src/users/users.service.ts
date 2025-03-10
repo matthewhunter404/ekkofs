@@ -22,6 +22,7 @@ export class UsersService {
           throw new HttpException('Structure Not Found', HttpStatus.NOT_FOUND);
         }
       }
+      console.error("Unexpected error:", error);
       throw new Error("An unexpected error occurred while creating the user");
     }
 

@@ -3,7 +3,7 @@ import { StructuresService } from './structures.service';
 import { CreateStructureDto } from './dto/create-structure.dto';
 import { StructureDto } from './dto/structure.dto';
 
-@Controller('structure')
+@Controller('structures')
 export class StructuresController {
     constructor(private structuresService: StructuresService) {}
 
@@ -13,8 +13,13 @@ export class StructuresController {
     }
 
     @Get(':id')
-    async findOne(@Param('id') id: string): Promise<StructureDto[]> {
-      return (await this.structuresService.findAll()).map(e =>StructureDto.fromEntity(e));
+    async findOne(@Param('id') id: number): Promise<StructureDto> {
+     const foundStructure = await this.structuresService.findOne(id)
+      if (foundStructure == null) {
+        throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+      } else {
+        return StructureDto.fromEntity(foundStructure)
+      }
     }
 
     @Post()

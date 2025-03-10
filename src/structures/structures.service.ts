@@ -27,6 +27,7 @@ export class StructuresService {
             }
         }
       }
+      console.error("Unexpected error:", error);
       throw new Error("An unexpected error occurred while creating the structure");
     }
 
