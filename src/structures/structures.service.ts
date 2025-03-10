@@ -23,7 +23,7 @@ export class StructuresService {
                 throw new HttpException('Assigned Role Does Not Exist', HttpStatus.BAD_REQUEST);
             }
             if (detail.includes("parentstructureid") ){
-                throw new HttpException('Parent Structure Not Found', HttpStatus.NOT_FOUND);
+                throw new HttpException('Parent Structure Does Not Exist', HttpStatus.BAD_REQUEST);
             }
           }
 
