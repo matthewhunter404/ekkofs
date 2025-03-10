@@ -18,7 +18,7 @@ export class RolesService {
       if (error instanceof QueryFailedError) {
         const message = error.message.toLowerCase();
         const detail = error.driverError.detail.toLowerCase();
-        if (message.includes("foreign key constraint") && detail.includes("roleid") ){
+        if (message.includes("foreign key constraint") && detail.includes("parentroleid") ){
           throw new HttpException('Parent Role Does Not Exist', HttpStatus.BAD_REQUEST);
         }
         if (message.includes("violates unique constraint")) {

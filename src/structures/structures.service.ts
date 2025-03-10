@@ -20,12 +20,22 @@ export class StructuresService {
         const detail = error.driverError.detail.toLowerCase();
         if (message.includes("foreign key constraint")) {
             if (detail.includes("roleid") ){
-                throw new HttpException('Does Not Exist', HttpStatus.BAD_REQUEST);
+                throw new HttpException('Assigned Role Does Not Exist', HttpStatus.BAD_REQUEST);
             }
-            if (detail.includes("structureid") ){
+            if (detail.includes("parentstructureid") ){
                 throw new HttpException('Parent Structure Not Found', HttpStatus.NOT_FOUND);
             }
-        }
+          }
+
+          if (message.includes("violates unique constraint")) {
+            if (detail.includes("parentstructureid")) {
+              throw new HttpException('Duplicate Parent Structure Assignment, each parent structure can only have one child', HttpStatus.BAD_REQUEST);
+            }
+            if  (detail.includes("name") && detail.includes("already exists")) {
+              throw new HttpException('Duplicate Name, a structure with that name already exists', HttpStatus.BAD_REQUEST);
+            }
+          }
+        
       }
       console.error("Unexpected error:", error);
       throw new Error("An unexpected error occurred while creating the structure");
@@ -36,8 +46,9 @@ export class StructuresService {
   }
 
   async findAll(): Promise<Structure[]> {
-    return this.structuresRepository.find();
+    return this.structuresRepository.find({relations: ["role"]});
   }
+  
 
   async findOne(id: number): Promise<Structure | null> {
     return this.structuresRepository.findOneBy({ id });

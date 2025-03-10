@@ -17,9 +17,11 @@ export class Structure {
   @ManyToOne(type => Role, role => role.structures)
   role: Role
 
-  @OneToOne(() => Structure, structure => structure.parent_structure, { nullable: true })
-  @JoinColumn()
+  @ManyToOne(type => Structure, structure => structure.child_structures, { nullable: true })
   parent_structure: Structure
+
+  @OneToMany(type => Structure, structure => structure.parent_structure)
+  child_structures: Structure[]
 
   constructor(partial: Partial<Structure>) {
     Object.assign(this, partial);

@@ -14,12 +14,15 @@ export class StructureDto {
   @IsNumber()
   parent_id: number;
   public static fromEntity(entity: Structure) {
-    const it = new StructureDto();
-    it.id = entity.id;
-    it.name = entity.name;
-    it.role_id = entity.role.id;
-    it.parent_id = entity.parent_structure.id;
-    return it;
+    console.log("Expected entity:", entity);
+    const structure = new StructureDto();
+    structure.id = entity.id;
+    structure.name = entity.name;
+    structure.role_id = entity.role.id;
+    if (entity.parent_structure) {
+      structure.parent_id = entity.parent_structure.id;
+    }
+    return structure;
   }
   
 }
