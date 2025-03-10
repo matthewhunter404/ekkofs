@@ -9,4 +9,4 @@ import { Structure } from './entity/structure.entity';
   controllers: [StructuresController],
   providers: [StructuresService]
 })
-export class StructureModule {}
+export class StructuresModule {}

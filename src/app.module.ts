@@ -6,8 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import typeORMConfig from './config/typeorm.config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config'
-import { StructureModule } from './structures/structures.module';
-import { RoleModule } from './roles/roles.module';
+import { StructuresModule } from './structures/structures.module';
+import { RolesModule } from './roles/roles.module';
 
 @Module({
   imports: [
@@ -20,8 +20,8 @@ import { RoleModule } from './roles/roles.module';
       inject: [ConfigService],
       useFactory: typeORMConfig,
    }),
-    StructureModule,
-    RoleModule
+   StructuresModule,
+   RolesModule
   ],
   controllers: [AppController],
   providers: [AppService],
