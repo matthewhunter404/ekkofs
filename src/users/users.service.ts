@@ -1,7 +1,6 @@
 import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, QueryFailedError } from 'typeorm';
-//import { User } from './interfaces/user.interface';
 import { EkkoUser } from './entity/user.entity';
 
 @Injectable()
