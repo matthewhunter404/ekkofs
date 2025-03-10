@@ -9,7 +9,6 @@ export class CreateStructureDto {
   @IsNotEmpty()
   @IsNumber()
   role_id: number;
-  @IsNotEmpty()
   @IsNumber()
   parent_id: number;
   

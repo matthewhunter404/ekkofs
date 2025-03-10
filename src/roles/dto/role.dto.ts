@@ -11,11 +11,13 @@ export class RoleDto {
   @IsNumber()
   parent_id: number;
   public static fromEntity(entity: Role) {
-    const it = new RoleDto();
-    it.id = entity.id;
-    it.name = entity.name;
-    it.parent_id = entity.parent_role.id;
-    return it;
+    const role = new RoleDto();
+    role.id = entity.id;
+    role.name = entity.name;
+    if (entity.parent_role) {
+      role.parent_id = entity.parent_role.id;
+    }
+    return role;
   }
   
 }

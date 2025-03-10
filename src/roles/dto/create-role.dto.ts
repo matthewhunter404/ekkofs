@@ -1,18 +1,21 @@
-import { IsString, IsNumber, IsNotEmpty } from 'class-validator';
+import { IsString, IsNumber, IsNotEmpty, IsOptional } from 'class-validator';
 import { Role } from '../entity/role.entity';
 
 export class CreateRoleDto {
   @IsString()
   @IsNotEmpty()
   name: string;
-  @IsNotEmpty()
   @IsNumber()
-  parent_id: number;
+  @IsOptional()
+  parent_id: number | null;
   public toEntity() {
-    return new Role({
+    let newEntity = new Role({
       name: this.name,
-      parent_role: new Role({ id: this.parent_id }),
-    });;
+    });
+    if (this.parent_id) {
+      newEntity.parent_role = new Role({ id: this.parent_id })
+    }
+    return newEntity;
   }
   
 }
