@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, OneToOne, JoinColumn} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, OneToOne, JoinColumn, Index} from 'typeorm';
 import { EkkoUser } from '../../users/entity/user.entity';
 import { Role } from '../../roles/entity/role.entity';
 
@@ -7,6 +7,7 @@ export class Structure {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Index({ unique: true })
   @Column()
   name: string;
 
