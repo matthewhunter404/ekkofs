@@ -9,9 +9,6 @@ export class EkkoUser { //TODO or maybe just call it UserEntity
   @Column({nullable: true})
   name: string;
 
-  @Column()
-  structure_id: number;
-
   @ManyToOne(type => Structure, structure => structure.users)
   structure: Structure
 

@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsNumber } from 'class-validator';
 import { EkkoUser } from '../entity/user.entity';
+import { Structure } from '../../structure/entity/structure.entity';
 
 export class UpdateUserDto {
   @IsNotEmpty()
@@ -8,7 +9,7 @@ export class UpdateUserDto {
 
   public toEntity() {
     return new EkkoUser({
-      structure_id: this.structure_id,
+      structure: new Structure({ id: this.structure_id }),
     });;
   }
   
