@@ -20,9 +20,9 @@ export class StructuresService {
         const detail = error.driverError.detail.toLowerCase();
         if (message.includes("foreign key constraint")) {
             if (detail.includes("roleid") ){
-                throw new HttpException('Role Not Found', HttpStatus.NOT_FOUND);
+                throw new HttpException('Does Not Exist', HttpStatus.BAD_REQUEST);
             }
-            if (detail.includes("strucutreid") ){
+            if (detail.includes("structureid") ){
                 throw new HttpException('Parent Structure Not Found', HttpStatus.NOT_FOUND);
             }
         }

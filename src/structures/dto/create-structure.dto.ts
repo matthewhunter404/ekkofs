@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsNotEmpty } from 'class-validator';
+import { IsString, IsNumber, IsNotEmpty, IsOptional } from 'class-validator';
 import { Structure } from '../entity/structure.entity';
 import { Role } from '../../roles/entity/role.entity';
 
@@ -10,14 +10,20 @@ export class CreateStructureDto {
   @IsNumber()
   role_id: number;
   @IsNumber()
-  parent_id: number;
+  @IsOptional()
+  parent_id: number | null;
   
   public toEntity() {
-    return new Structure({
-      name: this.name,
-      parent_structure: new Structure({ id: this.parent_id }),
-      role: new Role({ id: this.role_id }),
-    });
+      let newStructure = new Structure({
+        name: this.name,
+        role: new Role({
+          id: this.role_id
+        })
+      });
+      if (this.parent_id) {
+        newStructure.parent_structure= new Structure({ id: this.parent_id })
+      }
+      return newStructure;
   }
   
 }
