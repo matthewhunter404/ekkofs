@@ -4,7 +4,7 @@ import { Repository, QueryFailedError } from 'typeorm';
 import { Role } from './entity/role.entity';
 
 @Injectable()
-export class RoleService {
+export class RolesService {
   constructor(
     @InjectRepository(Role)
     private rolesRepository: Repository<Role>,

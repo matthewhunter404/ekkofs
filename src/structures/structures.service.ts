@@ -4,7 +4,7 @@ import { Repository, QueryFailedError } from 'typeorm';
 import { Structure } from './entity/structure.entity';
 
 @Injectable()
-export class StructureService {
+export class StructuresService {
   constructor(
     @InjectRepository(Structure)
     private structuresRepository: Repository<Structure>,

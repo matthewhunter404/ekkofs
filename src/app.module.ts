@@ -6,8 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import typeORMConfig from './config/typeorm.config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config'
-import { StructureModule } from './structures/structure.module';
-import { RoleModule } from './roles/role.module';
+import { StructureModule } from './structures/structures.module';
+import { RoleModule } from './roles/roles.module';
 
 @Module({
   imports: [

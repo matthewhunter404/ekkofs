@@ -1,7 +1,7 @@
 import { IsString, IsNumber, IsNotEmpty } from 'class-validator';
 import { Role } from '../entity/role.entity';
 
-export class CreateStructureDto {
+export class CreateRoleDto {
   @IsString()
   @IsNotEmpty()
   name: string;
