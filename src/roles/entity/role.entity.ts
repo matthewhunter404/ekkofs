@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn } from 'typeorm';
-import { Structure } from '../../structure/entity/structure.entity';
+import { Structure } from '../../structures/entity/structure.entity';
 
 @Entity()
 export class Role {

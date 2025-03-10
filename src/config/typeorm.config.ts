@@ -1,8 +1,8 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config'
 import { EkkoUser } from '../users/entity/user.entity';
-import { Structure } from '../structure/entity/structure.entity';
-import { Role } from '../role/entity/role.entity';
+import { Structure } from '../structures/entity/structure.entity';
+import { Role } from '../roles/entity/role.entity';
 
 export default (configService: ConfigService): TypeOrmModuleOptions => {
     const options: TypeOrmModuleOptions = {

@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, OneToOne, JoinColumn} from 'typeorm';
 import { EkkoUser } from '../../users/entity/user.entity';
-import { Role } from '../../role/entity/role.entity';
+import { Role } from '../../roles/entity/role.entity';
 
 @Entity()
 export class Structure {

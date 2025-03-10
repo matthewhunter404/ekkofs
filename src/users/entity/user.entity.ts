@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Structure } from '../../structure/entity/structure.entity';
+import { Structure } from '../../structures/entity/structure.entity';
 
 @Entity()
 export class EkkoUser { //TODO or maybe just call it UserEntity

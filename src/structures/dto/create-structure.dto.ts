@@ -1,6 +1,6 @@
 import { IsString, IsNumber, IsNotEmpty } from 'class-validator';
 import { Structure } from '../entity/structure.entity';
-import { Role } from '../../role/entity/role.entity';
+import { Role } from '../../roles/entity/role.entity';
 
 export class CreateStructureDto {
   @IsString()
