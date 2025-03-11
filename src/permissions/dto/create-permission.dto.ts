@@ -1,10 +1,10 @@
-import { IsString, IsNumber, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsNumber, IsNotEmpty} from 'class-validator';
 import { Permission } from '../entity/permission.entity';
 import { Structure } from '../../structures/entity/structure.entity';
 import { EkkoUser } from '../../users/entity/user.entity';
 
 export class CreatePermissionDto {
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
   structure_id: number;
   @IsNumber()
