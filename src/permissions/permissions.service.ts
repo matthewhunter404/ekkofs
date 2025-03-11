@@ -18,22 +18,19 @@ export class PermissionsService {
       if (error instanceof QueryFailedError) {
         const message = error.message.toLowerCase();
         const detail = error.driverError.detail.toLowerCase();
-        // if (message.includes("foreign key constraint")) {
-        //     if (detail.includes("structureid")) {
-        //         throw new HttpException('Duplicate Parent Permission Assignment, each parent permission can only have one child', HttpStatus.BAD_REQUEST);
-        //     }
-        //     if (detail.includes("userid")) {
-        //         throw new HttpException('Duplicate Parent Permission Assignment, each parent permission can only have one child', HttpStatus.BAD_REQUEST);
-        //     }
-        // }
-        // if (message.includes("violates unique constraint")) {
-        //   if (detail.includes("parentpermissionid")) {
-        //     throw new HttpException('Duplicate Parent Permission Assignment, each parent permission can only have one child', HttpStatus.BAD_REQUEST);
-        //   }
-        //   if  (detail.includes("name") && detail.includes("already exists")) {
-        //     throw new HttpException('Duplicate Name, a permission with that name already exists', HttpStatus.BAD_REQUEST);
-        //   }
-        // }
+        if (message.includes("foreign key constraint")) {
+            if (detail.includes("structureid") && (detail.includes("is not present"))) {
+                throw new HttpException('Structure does not exist', HttpStatus.BAD_REQUEST);
+            }
+            if (detail.includes("userid") && (detail.includes("is not present"))) {
+                throw new HttpException('User does not exist', HttpStatus.BAD_REQUEST);
+            }
+        }
+        if (message.includes("violates unique constraint")) {
+          if (detail.includes("structureid") && detail.includes("userid") && detail.includes("already exists")) {
+            throw new HttpException('Duplicate Permission Creation, the user already permission on that structure', HttpStatus.BAD_REQUEST);
+          }
+        }
 
       }
       console.error("Unexpected error:", error);
