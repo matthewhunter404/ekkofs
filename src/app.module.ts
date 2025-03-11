@@ -8,6 +8,7 @@ import config from './config/config';
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { StructuresModule } from './structures/structures.module';
 import { RolesModule } from './roles/roles.module';
+import { PermissionsModule } from './permissions/permissions.module';
 
 
 @Module({
@@ -22,7 +23,8 @@ import { RolesModule } from './roles/roles.module';
       useFactory: typeORMConfig,
    }),
    StructuresModule,
-   RolesModule
+   RolesModule,
+   PermissionsModule
   ],
   controllers: [AppController],
   providers: [AppService],

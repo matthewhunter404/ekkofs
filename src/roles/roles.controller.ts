@@ -30,17 +30,6 @@ export class RolesController {
       return RoleDto.fromEntity(createdRole)
     }
 
-    // @Patch(':id')
-    // async updateTaskStatus(@Param('id') id: number, @Body() updateRoleDto: UpdateRoleDto): Promise<RoleDto> {
-
-    //   const updatedRole = await this.rolesService.update(id, updateRoleDto.toEntity());
-    //   if (updatedRole == null) {
-    //     throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
-    //   } else {
-    //     return RoleDto.fromEntity(updatedRole)
-    //   }
-    // }
-
     @Delete(':id')
     async remove(@Param('id') id: number): Promise<void> {
       return await this.rolesService.remove(id);

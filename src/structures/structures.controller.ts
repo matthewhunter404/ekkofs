@@ -29,18 +29,7 @@ export class StructuresController {
 
       return StructureDto.fromEntity(createdStructure)
     }
-
-    // @Patch(':id')
-    // async updateTaskStatus(@Param('id') id: number, @Body() updateStructureDto: UpdateStructureDto): Promise<StructureDto> {
-
-    //   const updatedStructure = await this.structuresService.update(id, updateStructureDto.toEntity());
-    //   if (updatedStructure == null) {
-    //     throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
-    //   } else {
-    //     return StructureDto.fromEntity(updatedStructure)
-    //   }
-    // }
-
+    
     @Delete(':id')
     async remove(@Param('id') id: number): Promise<void> {
       return await this.structuresService.remove(id);

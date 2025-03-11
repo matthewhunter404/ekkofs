@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, OneToOne, JoinColumn, Index} from 'typeorm';
 import { EkkoUser } from '../../users/entity/user.entity';
 import { Role } from '../../roles/entity/role.entity';
+import { Permission } from '../../permissions/entity/permission.entity';
 
 @Entity()
 export class Structure {
@@ -25,6 +26,9 @@ export class Structure {
 
   @OneToMany(type => Structure, structure => structure.parent_structure)
   child_structures: Structure[]
+
+  @OneToMany(type => Permission, permission => permission.structure)
+  permissions: Permission
 
   constructor(partial: Partial<Structure>) {
     Object.assign(this, partial);

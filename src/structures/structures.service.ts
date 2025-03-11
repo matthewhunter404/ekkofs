@@ -57,18 +57,6 @@ export class StructuresService {
     });
   }
 
-//   async update(id: number, structure: Partial<Structure>): Promise<Structure| null> {
-//     const currentStructure = await this.structuresRepository.findOneBy({ id })
-//     if (currentStructure) {
-//       currentStructure.role.id = <number>structure.role?.id
-//       //TODO catch error here if role does not exist 
-//       return await this.structuresRepository.save(currentStructure)
-//     } else {
-//       return null
-//     }
-
-//   }
-
   async remove(id: number): Promise<void> {
     await this.structuresRepository.delete(id);
   }

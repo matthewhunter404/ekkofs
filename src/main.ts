@@ -13,7 +13,6 @@ async function bootstrap() {
     }),
 );
   const appPort = configService.get('port');
-  console.log("appPort: "+appPort)
   await app.listen(appPort);
 }
 bootstrap();

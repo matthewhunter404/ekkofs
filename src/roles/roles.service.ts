@@ -47,18 +47,6 @@ export class RolesService {
     return this.rolesRepository.findOneBy({ id });
   }
 
-//   async update(id: number, role: Partial<Role>): Promise<Role| null> {
-//     const currentRole = await this.rolesRepository.findOneBy({ id })
-//     if (currentRole) {
-//       currentRole.role.id = <number>role.role?.id
-//       //TODO catch error here if role does not exist 
-//       return await this.rolesRepository.save(currentRole)
-//     } else {
-//       return null
-//     }
-
-//   }
-
   async remove(id: number): Promise<void> {
     await this.rolesRepository.delete(id);
   }
