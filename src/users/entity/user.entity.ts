@@ -11,6 +11,9 @@ export class EkkoUser { //TODO or maybe just call it UserEntity
   @Column()
   name: string;
 
+  @Column()
+  password: string;
+
   @ManyToOne(type => Structure, structure => structure.users)
   structure: Structure
 

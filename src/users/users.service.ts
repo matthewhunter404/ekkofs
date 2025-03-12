@@ -41,6 +41,13 @@ export class UsersService {
     });
   }
 
+  async findOneByName(username: string): Promise<EkkoUser | null> {
+    return this.usersRepository.findOne({ 
+      where: { name: username },
+      relations: ["permissions"] 
+    });
+  }
+
   async update(id: number, user: Partial<EkkoUser>): Promise<EkkoUser| null> {
 
     let currentUser = await this.usersRepository.findOne({ 
