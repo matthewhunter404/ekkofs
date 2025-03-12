@@ -25,7 +25,6 @@ export class UsersController {
       return (await this.usersService.findAll()).map(e =>UserDto.fromEntity(e));
     }
 
-    @UseGuards(AuthGuard)
     @Get(':id')
     async findOne(@Param('id') id: number): Promise<UserDto> {
       const foundUser = await this.usersService.findOne(id)

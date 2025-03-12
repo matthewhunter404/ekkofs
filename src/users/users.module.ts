@@ -7,6 +7,7 @@ import { EkkoUser } from './entity/user.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([EkkoUser])],
   controllers: [UsersController],
-  providers: [UsersService]
+  providers: [UsersService],
+  exports: [UsersService]
 })
 export class UsersModule {}
