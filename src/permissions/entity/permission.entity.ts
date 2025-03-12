@@ -14,6 +14,8 @@ export class Permission {
   @ManyToOne(type => EkkoUser, user => user.permissions)
   user: EkkoUser
 
+  //Currently all permissions are for querying, rather than updating or deleting.
+
   constructor(partial: Partial<Permission>) {
     Object.assign(this, partial);
   }
