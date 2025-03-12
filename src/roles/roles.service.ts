@@ -11,30 +11,40 @@ export class RolesService {
   ) {}
 
   async create(role: Role): Promise<Role> {
-    let savedRole
+    let savedRole;
     try {
-        savedRole = await this.rolesRepository.save(role);
+      savedRole = await this.rolesRepository.save(role);
     } catch (error) {
       if (error instanceof QueryFailedError) {
         const message = error.message.toLowerCase();
         const detail = error.driverError.detail.toLowerCase();
-        if (message.includes("foreign key constraint") && detail.includes("parentroleid") ){
-          throw new HttpException('Parent Role Does Not Exist', HttpStatus.BAD_REQUEST);
+        if (
+          message.includes('foreign key constraint') &&
+          detail.includes('parentroleid')
+        ) {
+          throw new HttpException(
+            'Parent Role Does Not Exist',
+            HttpStatus.BAD_REQUEST,
+          );
         }
-        if (message.includes("violates unique constraint")) {
-          if (detail.includes("parentroleid")) {
-            throw new HttpException('Duplicate Parent Role Assignment, each parent role can only have one child', HttpStatus.BAD_REQUEST);
+        if (message.includes('violates unique constraint')) {
+          if (detail.includes('parentroleid')) {
+            throw new HttpException(
+              'Duplicate Parent Role Assignment, each parent role can only have one child',
+              HttpStatus.BAD_REQUEST,
+            );
           }
-          if  (detail.includes("name") && detail.includes("already exists")) {
-            throw new HttpException('Duplicate Name, a role with that name already exists', HttpStatus.BAD_REQUEST);
+          if (detail.includes('name') && detail.includes('already exists')) {
+            throw new HttpException(
+              'Duplicate Name, a role with that name already exists',
+              HttpStatus.BAD_REQUEST,
+            );
           }
         }
-
       }
-      console.error("Unexpected error:", error);
-      throw new Error("An unexpected error occurred while creating the role");
+      console.error('Unexpected error:', error);
+      throw new Error('An unexpected error occurred while creating the role');
     }
-
 
     return savedRole;
   }
@@ -50,5 +60,4 @@ export class RolesService {
   async remove(id: number): Promise<void> {
     await this.rolesRepository.delete(id);
   }
-
 }

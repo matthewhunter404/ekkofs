@@ -1,4 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, OneToOne, JoinColumn, Index} from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
+  OneToOne,
+  JoinColumn,
+  Index,
+} from 'typeorm';
 import { EkkoUser } from '../../users/entity/user.entity';
 import { Role } from '../../roles/entity/role.entity';
 import { Permission } from '../../permissions/entity/permission.entity';
@@ -12,23 +21,25 @@ export class Structure {
   @Column()
   name: string;
 
-  @OneToMany(type => EkkoUser, user => user.structure)
+  @OneToMany((type) => EkkoUser, (user) => user.structure)
   users: EkkoUser[];
 
-  @ManyToOne(type => Role, role => role.structures)
-  role: Role
+  @ManyToOne((type) => Role, (role) => role.structures)
+  role: Role;
 
   @Column({ nullable: true })
-  parentStructureId: number
-  
-  @ManyToOne(type => Structure, structure => structure.child_structures, { nullable: true })
-  parent_structure: Structure
+  parentStructureId: number;
 
-  @OneToMany(type => Structure, structure => structure.parent_structure)
-  child_structures: Structure[]
+  @ManyToOne((type) => Structure, (structure) => structure.child_structures, {
+    nullable: true,
+  })
+  parent_structure: Structure;
 
-  @OneToMany(type => Permission, permission => permission.structure)
-  permissions: Permission[]
+  @OneToMany((type) => Structure, (structure) => structure.parent_structure)
+  child_structures: Structure[];
+
+  @OneToMany((type) => Permission, (permission) => permission.structure)
+  permissions: Permission[];
 
   constructor(partial: Partial<Structure>) {
     Object.assign(this, partial);

@@ -12,18 +12,17 @@ export class CreateStructureDto {
   @IsNumber()
   @IsOptional()
   parent_id: number | null;
-  
+
   public toEntity() {
-      let newStructure = new Structure({
-        name: this.name,
-        role: new Role({
-          id: this.role_id
-        })
-      });
-      if (this.parent_id) {
-        newStructure.parent_structure= new Structure({ id: this.parent_id })
-      }
-      return newStructure;
+    const newStructure = new Structure({
+      name: this.name,
+      role: new Role({
+        id: this.role_id,
+      }),
+    });
+    if (this.parent_id) {
+      newStructure.parent_structure = new Structure({ id: this.parent_id });
+    }
+    return newStructure;
   }
-  
 }

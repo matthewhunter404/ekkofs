@@ -5,12 +5,11 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import typeORMConfig from './config/typeorm.config';
 import config from './config/config';
-import { ConfigModule, ConfigService } from '@nestjs/config'
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { StructuresModule } from './structures/structures.module';
 import { RolesModule } from './roles/roles.module';
 import { PermissionsModule } from './permissions/permissions.module';
 import { AuthModule } from './auth/auth.module';
-
 
 @Module({
   imports: [
@@ -22,14 +21,13 @@ import { AuthModule } from './auth/auth.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: typeORMConfig,
-   }),
-   StructuresModule,
-   RolesModule,
-   PermissionsModule,
-   AuthModule
+    }),
+    StructuresModule,
+    RolesModule,
+    PermissionsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-
 export class AppModule {}

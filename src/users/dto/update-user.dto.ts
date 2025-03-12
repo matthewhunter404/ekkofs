@@ -10,7 +10,6 @@ export class UpdateUserDto {
   public toEntity() {
     return new EkkoUser({
       structure: new Structure({ id: this.structure_id }),
-    });;
+    });
   }
-  
 }

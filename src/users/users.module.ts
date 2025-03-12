@@ -8,6 +8,6 @@ import { EkkoUser } from './entity/user.entity';
   imports: [TypeOrmModule.forFeature([EkkoUser])],
   controllers: [UsersController],
   providers: [UsersService],
-  exports: [UsersService]
+  exports: [UsersService],
 })
 export class UsersModule {}
