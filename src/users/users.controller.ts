@@ -1,9 +1,20 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, HttpStatus, HttpException } from '@nestjs/common';
+import { 
+  Controller, 
+  Get, 
+  Post, 
+  Patch, 
+  Delete, 
+  Body, 
+  Param, 
+  HttpStatus, 
+  HttpException, 
+  UseGuards 
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';
-import { EkkoUser } from './entity/user.entity';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -14,6 +25,7 @@ export class UsersController {
       return (await this.usersService.findAll()).map(e =>UserDto.fromEntity(e));
     }
 
+    @UseGuards(AuthGuard)
     @Get(':id')
     async findOne(@Param('id') id: number): Promise<UserDto> {
       const foundUser = await this.usersService.findOne(id)
