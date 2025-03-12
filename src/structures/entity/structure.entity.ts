@@ -28,7 +28,7 @@ export class Structure {
   child_structures: Structure[]
 
   @OneToMany(type => Permission, permission => permission.structure)
-  permissions: Permission
+  permissions: Permission[]
 
   constructor(partial: Partial<Structure>) {
     Object.assign(this, partial);

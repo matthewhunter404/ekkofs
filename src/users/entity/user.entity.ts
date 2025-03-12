@@ -18,7 +18,7 @@ export class EkkoUser { //TODO or maybe just call it UserEntity
   structure: Structure
 
   @OneToMany(type => Permission, permission => permission.structure)
-  permissions: Permission
+  permissions: Permission[]
 
   constructor(partial: Partial<EkkoUser>) {
     Object.assign(this, partial);
