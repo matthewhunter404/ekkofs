@@ -19,13 +19,20 @@ export class UsersService {
         const message = error.message.toLowerCase();
         const detail = error.driverError.detail.toLowerCase();
         if (
-          message.includes('foreign key constraint') &&
-          detail.includes('structureid')
+          message.includes('foreign key constraint') && detail.includes('structureid')
         ) {
           throw new HttpException(
             'Structure Not Found',
             HttpStatus.BAD_REQUEST,
           );
+        }
+        if (message.includes('violates unique constraint')) {
+          if (detail.includes('name') && detail.includes('already exists')) {
+            throw new HttpException(
+              'Duplicate Name, a user with this name already exists',
+              HttpStatus.BAD_REQUEST,
+            );
+          }
         }
       }
       console.error('Unexpected error:', error);
