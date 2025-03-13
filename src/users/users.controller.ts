@@ -15,6 +15,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';
 import { AuthGuard } from '../auth/auth.guard';
+import { AuthUser } from './users.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -22,7 +23,9 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @Get()
-  async findAll(): Promise<UserDto[]> {
+  async findAll(@AuthUser() user: any): Promise<UserDto[]> {
+
+    console.log("user: "+ JSON.stringify(user))
     return (await this.usersService.findAll()).map((e) =>
       UserDto.fromEntity(e),
     );

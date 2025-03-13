@@ -17,14 +17,6 @@ import { PermissionDto } from './dto/permission.dto';
 export class PermissionsController {
   constructor(private permissionsService: PermissionsService) {}
 
-  //TODO assess if this makes sense to get all Permissions
-  @Get()
-  async findAll(): Promise<PermissionDto[]> {
-    return (await this.permissionsService.findAll()).map((e) =>
-      PermissionDto.fromEntity(e),
-    );
-  }
-
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<PermissionDto> {
     const foundPermission = await this.permissionsService.findOne(id);

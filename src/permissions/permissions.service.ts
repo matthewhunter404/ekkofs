@@ -1,6 +1,6 @@
 import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, QueryFailedError } from 'typeorm';
+import { Repository, QueryFailedError, In } from 'typeorm';
 import { Permission } from './entity/permission.entity';
 
 @Injectable()
@@ -57,9 +57,8 @@ export class PermissionsService {
     return savedPermission;
   }
 
-  //TODO assess if this makes sense to get all Permissions
-  async findAll(): Promise<Permission[]> {
-    return this.permissionsRepository.find();
+  async findSet(ids: number[]): Promise<Permission[]> {
+    return this.permissionsRepository.find({ where: { id: In([...ids]) } });
   }
 
   async findOne(id: number): Promise<Permission | null> {
