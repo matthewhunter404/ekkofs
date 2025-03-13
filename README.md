@@ -27,3 +27,15 @@ Once a Postgres database is running, the rest of the project can be run locally 
 $ yarn run start
 ```
 
+### Example .env file
+
+```
+POSTGRES_HOST=127.0.0.1
+POSTGRES_PORT=5432
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
+POSTGRES_DATABASE=database
+PORT=3000
+JWT_SECRET=R>0S~wRxK\YKi|0|l\
+JWT_EXPIRY_SECONDS=3600
+```
