@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsNotEmpty } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 import { Permission } from '../entity/permission.entity';
 import { UserDto } from 'src/users/dto/user.dto';
 import { StructureDto } from 'src/structures/dto/structure.dto';

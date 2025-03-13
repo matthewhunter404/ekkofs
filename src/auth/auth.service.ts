@@ -18,6 +18,9 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException();
     }
+    console.log("username: "+username)
+    console.log("password: "+password)
+    console.log("user: "+JSON.stringify(user))
     const isMatch = await bcrypt.compare(password, user.hashedPassword);
     if (!isMatch) {
       throw new UnauthorizedException();
