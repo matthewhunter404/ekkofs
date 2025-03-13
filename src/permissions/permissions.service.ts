@@ -57,8 +57,8 @@ export class PermissionsService {
     return savedPermission;
   }
 
-  async findSet(ids: number[]): Promise<Permission[]> {
-    return this.permissionsRepository.find({ where: { id: In([...ids]) } });
+  async findAllMatches(userId: number, structureIds: number[]): Promise<Permission[]> {
+    return this.permissionsRepository.find({ where: { user: {id: userId}, structure:{id: In([...structureIds])} } });
   }
 
   async findOne(id: number): Promise<Permission | null> {
@@ -68,4 +68,16 @@ export class PermissionsService {
   async remove(id: number): Promise<void> {
     await this.permissionsRepository.delete(id);
   }
+
+//   async hasPermission(requestorID: number, requestedID: number): Promise<void> {
+
+//     requestedStructure = getUserStructure(requestedID)
+//     nestedStructures= findParents(requestedStructure.ID)
+//     structureIDs[]= getStructureIDsFromChain(nestedStructures)
+
+//     findAllMatches(requestorID, structureIds)
+
+
+//     await this.permissionsRepository.delete(id);
+//   }
 }

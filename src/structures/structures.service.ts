@@ -1,13 +1,13 @@
 import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, QueryFailedError } from 'typeorm';
+import { QueryFailedError, TreeRepository } from 'typeorm';
 import { Structure } from './entity/structure.entity';
 
 @Injectable()
 export class StructuresService {
   constructor(
     @InjectRepository(Structure)
-    private structuresRepository: Repository<Structure>,
+    private structuresRepository: TreeRepository<Structure>,
   ) {}
 
   async create(structure: Structure): Promise<Structure> {
@@ -59,6 +59,13 @@ export class StructuresService {
 
   async findAll(): Promise<Structure[]> {
     return this.structuresRepository.find({ relations: ['role'] });
+  }
+
+  async findParents(id: number): Promise<Structure> {
+    let childStruct = new Structure({
+      id:id
+    })
+    return this.structuresRepository.findAncestorsTree(childStruct);
   }
 
   async findOne(id: number): Promise<Structure | null> {

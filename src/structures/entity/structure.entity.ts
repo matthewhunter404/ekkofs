@@ -1,11 +1,12 @@
 import {
   Entity,
+  Tree,
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
   ManyToOne,
-  OneToOne,
-  JoinColumn,
+  TreeParent,
+  TreeChildren,
   Index,
 } from 'typeorm';
 import { EkkoUser } from '../../users/entity/user.entity';
@@ -13,6 +14,7 @@ import { Role } from '../../roles/entity/role.entity';
 import { Permission } from '../../permissions/entity/permission.entity';
 
 @Entity()
+@Tree("materialized-path")
 export class Structure {
   @PrimaryGeneratedColumn()
   id: number;
@@ -30,12 +32,10 @@ export class Structure {
   @Column({ nullable: true })
   parentStructureId: number;
 
-  @ManyToOne((type) => Structure, (structure) => structure.child_structures, {
-    nullable: true,
-  })
+  @TreeParent()
   parent_structure: Structure;
 
-  @OneToMany((type) => Structure, (structure) => structure.parent_structure)
+  @TreeChildren()
   child_structures: Structure[];
 
   @OneToMany((type) => Permission, (permission) => permission.structure)

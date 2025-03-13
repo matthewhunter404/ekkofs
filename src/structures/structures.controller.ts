@@ -19,7 +19,6 @@ import { AuthGuard } from '../auth/auth.guard';
 export class StructuresController {
   constructor(private structuresService: StructuresService) {}
 
-  @UseGuards(AuthGuard)
   @Get()
   async findAll(): Promise<StructureDto[]> {
     return (await this.structuresService.findAll()).map((e) =>

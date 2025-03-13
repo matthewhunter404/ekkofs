@@ -1,4 +1,4 @@
-import { Entity, Unique, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Unique, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
 import { Structure } from '../../structures/entity/structure.entity';
 import { EkkoUser } from '../../users/entity/user.entity';
 

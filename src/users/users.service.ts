@@ -1,6 +1,6 @@
 import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, QueryFailedError } from 'typeorm';
+import { Repository, QueryFailedError, In } from 'typeorm';
 import { EkkoUser } from './entity/user.entity';
 
 @Injectable()
@@ -42,6 +42,7 @@ export class UsersService {
     return savedUser;
   }
 
+  //TODO remove for all except some super user account
   async findAll(): Promise<EkkoUser[]> {
     return this.usersRepository.find({ relations: ['structure'] });
   }
@@ -51,6 +52,39 @@ export class UsersService {
       where: { id: id },
       relations: ['structure'],
     });
+  }
+
+  async findAccessibleUsers(userID: number): Promise<EkkoUser | null> {
+
+    const accessibleUsers = await this.usersRepository.createQueryBuilder("users")
+    .leftJoinAndSelect("users.structure", "structure").where("users.structureId = :structureId", { structureId: 25 })
+    // .leftJoinAndSelect("permission.ekko_users", "user").where("user.id = :userId", { userId: userID })
+    .printSql()
+    .getMany()
+
+    console.log("accessibleUsers:", JSON.stringify(accessibleUsers))
+    return null
+    // let requestingUser= await this.usersRepository.findOne({
+    //   where: { id: userID },
+    //   relations: ['permissions'],
+    // });
+
+    // if (requestingUser) {
+    //   requestingUser.permissions
+
+    //   structure:{id: In([...structureIds])}
+
+
+    //   accessableStructures = this.structuresRepository()
+
+    //   this.usersRepository.find({
+    //     where: { structure:{id: In([...accessableStructureIDs])}
+    //   });
+      
+    // } else {
+    //   throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
+    // }
+
   }
 
   async findOneByName(username: string): Promise<EkkoUser | null> {
