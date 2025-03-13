@@ -20,6 +20,7 @@ import { AuthGuard } from '../auth/auth.guard';
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
+  @UseGuards(AuthGuard)
   @Get()
   async findAll(): Promise<UserDto[]> {
     return (await this.usersService.findAll()).map((e) =>
