@@ -41,8 +41,8 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @Get(':id')
-  async findOne(@Param('id') id: number): Promise<UserDto> {
-    const foundUser = await this.usersService.findOne(id);
+  async findOne(@AuthUser() user: any, @Param('id') id: number): Promise<UserDto> {
+    const foundUser = await this.usersService.findOne(user.sub, id);
     if (foundUser == null) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     } else {

@@ -47,19 +47,23 @@ export class UsersService {
     return this.usersRepository.find({ relations: ['structure'] });
   }
 
-  async findOne(id: number): Promise<EkkoUser | null> {
-    return this.usersRepository.findOne({
-      where: { id: id },
-      relations: ['structure'],
-    });
+  async findOne(requestorID: number, id: number): Promise<EkkoUser | null> {
+    const users = await this.usersRepository.query("select DISTINCT ekko_user.id, ekko_user.name from ekko_user "+
+      "INNER JOIN structure ON structure.id = ekko_user.\"structureId\" " + 
+      "INNER JOIN permission ON structure.mpath LIKE '%' || permission.\"structureId\" || '%'"+
+      "INNER JOIN ekko_user AS caller ON permission.\"userId\" = caller.id WHERE caller.id = $1 AND ekko_user.id = $2",[requestorID, id])
+
+      console.log("user:", JSON.stringify(users[0]))
+      
+      return users.length > 0 ? users[0] : null;
   }
 
-  async findAccessible(userID: number): Promise<EkkoUser[]> {
+  async findAccessible(requestorID: number): Promise<EkkoUser[]> {
 
     const accessibleUsers = await this.usersRepository.query("select DISTINCT ekko_user.id, ekko_user.name from ekko_user "+
       "INNER JOIN structure ON structure.id = ekko_user.\"structureId\" " + 
       "INNER JOIN permission ON structure.mpath LIKE '%' || permission.\"structureId\" || '%'"+
-      "INNER JOIN ekko_user AS caller ON permission.\"userId\" = caller.id WHERE caller.id ="+userID)
+      "INNER JOIN ekko_user AS caller ON permission.\"userId\" = caller.id WHERE caller.id = $1",[requestorID])
 
     console.log("accessibleUsers:", JSON.stringify(accessibleUsers))
     return accessibleUsers
