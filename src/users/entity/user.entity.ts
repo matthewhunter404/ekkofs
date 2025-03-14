@@ -1,8 +1,17 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, Index } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+  Index,
+} from 'typeorm';
 import { Structure } from '../../structures/entity/structure.entity';
+import { Permission } from '../../permissions/entity/permission.entity';
 
 @Entity()
-export class EkkoUser { //TODO or maybe just call it UserEntity
+export class EkkoUser {
+  //TODO or maybe just call it UserEntity
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -10,8 +19,14 @@ export class EkkoUser { //TODO or maybe just call it UserEntity
   @Column()
   name: string;
 
-  @ManyToOne(type => Structure, structure => structure.users)
-  structure: Structure
+  @Column()
+  hashedPassword: string;
+
+  @ManyToOne((type) => Structure, (structure) => structure.users)
+  structure: Structure;
+
+  @OneToMany((type) => Permission, (permission) => permission.structure)
+  permissions: Permission[];
 
   constructor(partial: Partial<EkkoUser>) {
     Object.assign(this, partial);

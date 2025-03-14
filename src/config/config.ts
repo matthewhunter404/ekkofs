@@ -1,2 +1,3 @@
-// src/config/config.service.ts
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+export default () => ({
+  port: process.env.PORT ?? 30000,
+});

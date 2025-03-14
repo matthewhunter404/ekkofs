@@ -21,5 +21,4 @@ export class UserDto {
     }
     return user;
   }
-  
 }

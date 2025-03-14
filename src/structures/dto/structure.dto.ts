@@ -14,7 +14,7 @@ export class StructureDto {
   @IsNumber()
   parent_id: number;
   public static fromEntity(entity: Structure) {
-    console.log("Structure Entity:", entity);
+    console.log('Structure Entity:', entity);
     const structure = new StructureDto();
     structure.id = entity.id;
     structure.name = entity.name;
@@ -26,5 +26,4 @@ export class StructureDto {
     }
     return structure;
   }
-  
 }
