@@ -15,7 +15,6 @@ export default (configService: ConfigService): TypeOrmModuleOptions => {
     database: configService.get<string>('POSTGRES_DATABASE'),
     entities: [EkkoUser, Structure, Role, Permission],
     synchronize: true, //This autoruns migrations, TODO turn off for production
-    logging: true
   };
   return options;
 };

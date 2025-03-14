@@ -23,12 +23,20 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @Get()
-  async findAll(@AuthUser() user: any): Promise<UserDto[] | null> {
+  async findAccessible(@AuthUser() user: any): Promise<UserDto[]> {
 
-    console.log("user: "+ JSON.stringify(user))
-    
-    let accessabileUsers =await this.usersService.findAccessibleUsers(user.sub)
-    return null
+    return (await this.usersService.findAccessible(user.sub)).map((e) =>
+          UserDto.fromEntity(e),
+        );
+
+  }
+
+  @Get('all')
+  async findAll(@AuthUser() user: any): Promise<UserDto[]> {
+    return (await this.usersService.findAll()).map((e) =>
+          UserDto.fromEntity(e),
+        );
+
   }
 
   @UseGuards(AuthGuard)

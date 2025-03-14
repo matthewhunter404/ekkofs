@@ -54,36 +54,15 @@ export class UsersService {
     });
   }
 
-  async findAccessibleUsers(userID: number): Promise<EkkoUser | null> {
+  async findAccessible(userID: number): Promise<EkkoUser[]> {
 
-    const accessibleUsers = await this.usersRepository.createQueryBuilder("users")
-    .leftJoinAndSelect("users.structure", "structure").where("users.structureId = :structureId", { structureId: 25 })
-    // .leftJoinAndSelect("permission.ekko_users", "user").where("user.id = :userId", { userId: userID })
-    .printSql()
-    .getMany()
+    const accessibleUsers = await this.usersRepository.query("select DISTINCT ekko_user.id, ekko_user.name from ekko_user "+
+      "INNER JOIN structure ON structure.id = ekko_user.\"structureId\" " + 
+      "INNER JOIN permission ON structure.mpath LIKE '%' || permission.\"structureId\" || '%'"+
+      "INNER JOIN ekko_user AS caller ON permission.\"userId\" = caller.id WHERE caller.id ="+userID)
 
     console.log("accessibleUsers:", JSON.stringify(accessibleUsers))
-    return null
-    // let requestingUser= await this.usersRepository.findOne({
-    //   where: { id: userID },
-    //   relations: ['permissions'],
-    // });
-
-    // if (requestingUser) {
-    //   requestingUser.permissions
-
-    //   structure:{id: In([...structureIds])}
-
-
-    //   accessableStructures = this.structuresRepository()
-
-    //   this.usersRepository.find({
-    //     where: { structure:{id: In([...accessableStructureIDs])}
-    //   });
-      
-    // } else {
-    //   throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
-    // }
+    return accessibleUsers
 
   }
 
