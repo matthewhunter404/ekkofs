@@ -1,4 +1,21 @@
 services:
+  ekkofs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ekkofs
+    command: npm run start
+    ports:
+      - "3000:3000"
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DATABASE: database
+      PORT: 3000
+      JWT_SECRET: R>0S~wRxK\YKi|0|l\
+      JWT_EXPIRY_SECONDS: 3600
   db:
     image: postgres
     command: [ "postgres", "-c", "log_statement=all", "-c", "log_destination=stderr" ]
