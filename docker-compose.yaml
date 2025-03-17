@@ -1,14 +1,14 @@
 services:
-  sample-app:
+  ekkofs:
     build:
       context: .
       dockerfile: Dockerfile
       target: ekkofs
-    command: start
+    command: npm run start
     ports:
       - "3000:3000"
     environment:
-      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_HOST: db
       POSTGRES_PORT: 5432
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password

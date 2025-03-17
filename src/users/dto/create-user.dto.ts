@@ -1,7 +1,7 @@
 import { IsString, IsNumber, IsNotEmpty } from 'class-validator';
 import { EkkoUser } from '../entity/user.entity';
 import { Structure } from '../../structures/entity/structure.entity';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 export class CreateUserDto {
   @IsString()
